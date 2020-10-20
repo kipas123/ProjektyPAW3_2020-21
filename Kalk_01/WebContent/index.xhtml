@@ -3,26 +3,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<title>Kalkulator kredytowy</title>
 </h:head>
 <h:body>
 
-	<h1>Kalkulator kredytowy(kalk_01)</h1>
-
+ <p:panel id="toggleable" header="Kalkulator kredytowy(kalk_01)" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
 	<h:form id="bla">
-  		Kwota: <h:inputText value="#{kredytBB.kwota}" />
-		<br />
-  		Rata na miesiac: <h:inputText value="#{kredytBB.rata}" />
-		<br />
-		Oprocentowanie(%): <h:inputText value="#{kredytBB.oprocentowanie}" />
-		<br />
-		<h:messages id="msg" />
 
-		<h:commandButton value="Dodaj" action="#{kredytBB.calc()}"/>
-		<br />
+		<h:panelGrid id="grid" columns="3" cellpadding="5">
+        <p:outputLabel for="kwota" value="Kwota" />
+        <p:inputText id="kwota" value="#{kredytBB.kwota}" required="true" requiredMessage="Podaj kwote" />
+        <p:message for="kwota" />
+
+        <p:outputLabel for="rata" value="Rata" />
+        <p:inputText id="rata" value="#{kredytBB.rata}" required="true" requiredMessage="Podaj rate" />
+        <p:message for="rata" />
+ 
+        <p:outputLabel for="rata" value="Oprocentowanie" />
+        <p:inputText id="oproc" value="#{kredytBB.oprocentowanie}" required="true" requiredMessage="Podaj oprocentowanie" />
+        <p:message for="oproc" />
+        
+        <p:commandButton value="Oblicz_AJAX" id="ajax" update="msg" action="#{kredytBB.calc_AJAX()}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+ 		<p:commandButton value="Oblicz" id="nonAjax" action="#{kredytBB.calc()}" style="margin-right:20px;" ajax="false" />
+    </h:panelGrid>
+    <p:messages id="msg" />
 	</h:form>
+	</p:panel>
 
 </h:body>
 </html>
