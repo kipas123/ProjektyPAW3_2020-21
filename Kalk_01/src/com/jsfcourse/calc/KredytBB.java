@@ -11,51 +11,47 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 //@SessionScoped
 public class KredytBB {
-	private String kwota;
-	private String rata;
-	private String oprocentowanie;
+	private Double kwota;
+	private Double rata;
+	private Double oprocentowanie;
 	private Double result;
 
 	@Inject
 	FacesContext ctx;
 
-	
 
-	public String getKwota() {
+	public Double getKwota() {
 		return kwota;
 	}
 
-	public void setKwota(String kwota) {
+	public void setKwota(Double kwota) {
 		this.kwota = kwota;
 	}
 
-	public String getRata() {
+	public Double getRata() {
 		return rata;
 	}
 
-	public void setRata(String rata) {
+	public void setRata(Double rata) {
 		this.rata = rata;
 	}
 
-	public String getOprocentowanie() {
+	public Double getOprocentowanie() {
 		return oprocentowanie;
 	}
 
-	public void setOprocentowanie(String oprocentowanie) {
+	public void setOprocentowanie(Double oprocentowanie) {
 		this.oprocentowanie = oprocentowanie;
 	}
 
-	public void setResult(Double result) {
-		this.result = result;
+	public Double getResult() {
+		return result;
 	}
 
 	public boolean doTheMath() {
 		try {
-			double x = Double.parseDouble(this.kwota);
-			double y = Double.parseDouble(this.rata);
-			double z = Double.parseDouble(this.oprocentowanie);
 
-			result = (x*(1+(z/100)))/y;
+			result = (getKwota()*(1+(getOprocentowanie()/100)))/getRata();
 
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Operacja wykonana poprawnie", null));
 			return true;
@@ -74,9 +70,6 @@ public class KredytBB {
 		return null;
 	}
 
-	public Double getResult() {
-		return result;
-	}
 	public String calc_AJAX() {
 		if (doTheMath()) {
 			ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Wynik: " + result, null));
