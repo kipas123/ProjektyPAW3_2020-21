@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+		<!-- Fixed navbar -->
+<p:panel id="toggleable" header="Kalkulator kredytowy(kalk_01)" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+	<h:form id="bla">
+
+		<h:panelGrid id="grid" columns="3" cellpadding="5">
+		<p:outputLabel for="kwota" value="Kwota" />
+		<p:inputText value="#{kredytBB.kwota}" required="true" requiredMessage="Podaj kwote!" validatorMessage="Minimalna kwota kredytu to 100!" converterMessage="Kwota musi być cyfrą!" id="kwota">
+		<f:validateDoubleRange minimum="100"/>
+		</p:inputText>
+		<p:message for="kwota"/>
+
+        <p:outputLabel for="rata" value="Rata" />
+		<p:inputText value="#{kredytBB.rata}" required="true" requiredMessage="Podaj rate!" validatorMessage="Minimalna rata miesięczna to 10!" converterMessage="Rata musi być cyfrą!" id="rata">
+		<f:validateDoubleRange minimum="10"/>
+		</p:inputText>
+		<p:message for="rata"/>
+ 
+        <p:outputLabel for="oproc" value="Oprocentowanie" />
+		<p:inputText value="#{kredytBB.oprocentowanie}" required="true" requiredMessage="Podaj oprocentowanie!" validatorMessage="Oprocentowanie musi być z zakresu[0-100%]!" converterMessage="Oprocentowanie musi być cyfrą!" id="oproc">
+		<f:validateDoubleRange minimum="1" maximum="100"/>
+		</p:inputText>
+		<p:message for="oproc"/>
+        
+        <p:commandButton value="Oblicz_AJAX" id="ajax" update="msg" action="#{kredytBB.calc_AJAX()}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+ 		<p:commandButton value="Oblicz" id="nonAjax" action="#{kredytBB.calc()}" style="margin-right:20px;" ajax="false" />
+    </h:panelGrid>
+    <p:messages id="msg" />
+	</h:form>
+	</p:panel>
+
+</ui:composition>
